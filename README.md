@@ -14,7 +14,7 @@ https://croon233.github.io/DVFinal/
 https://tonyc793.github.io/dv_show 
 
 ## Video Link:
-
+https://www.youtube.com/watch?v=KAr9o-Uu2EE
 
 ## Repository Link
 https://github.com/dongtang3/grad-final
