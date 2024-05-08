@@ -15,14 +15,15 @@ https://tonyc793.github.io/dv_show
 
 ## Video Link:
 
+
 ## Repository Link
 https://github.com/dongtang3/grad-final
 
 ## Process Book
-[CS 573 Process Book.pdf](./CS.573.Process.Book.pdf)
+[CS 573 Process Book.pdf](./CS_573_Process_Book.pdf)
 
 ## Data Processing
-[Uploading Data_Processing&Visual.ipynb…]()
+[Data Processing & Visual.ipynb](./Data_Processing_&_Visual.ipynb)
 
 
 ## Technologies Used
