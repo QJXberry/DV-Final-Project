@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DV final</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">DV final
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiZWxpdWlueiIsImEiOiJjbHZjeGdkNXgwcDljMnZvbHkwcTZqdHY3In0.E-TfecMIyF_z9ZJSn6sK_Q';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v11',
+        center: [114.1244320147371, 22.61192903277529], // 这里设置了地图的初始中心点为列表中的第一个坐标
+        zoom: 10
+    });
+
+    map.on('load', function() {
+        // 添加源来自外部GeoJSON文件
+        map.addSource('my-geojson', {
+            type: 'geojson',
+            data: 'boarding_cluster_json_data.json',
+            cluster: true,
+            clusterMaxZoom: 14,
+            clusterRadius: 50
+        });
+
+        // 添加聚类层
+        map.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'my-geojson',
+            filter: ['has', 'point_count'],
+            paint: {
+                'circle-color': [
+                    'step',
+                    ['get', 'point_count'],
+                    '#51bbd6', 100,
+                    '#f1f075', 750,
+                    '#f28cb1'
+                ],
+                'circle-radius': [
+                    'step',
+                    ['get', 'point_count'],
+                    20, 100,
+                    30, 750,
+                    40
+                ]
+            }
+        });
+
+        // 添加聚类数量标签
+        map.addLayer({
+            id: 'cluster-count',
+            type: 'symbol',
+            source: 'my-geojson',
+            filter: ['has', 'point_count'],
+            layout: {
+                'text-field': '{point_count_abbreviated}',
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 12
+            }
+        });
+
+        // 添加非聚类点
+        map.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'my-geojson',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+                'circle-color': '#11b4da',
+                'circle-radius': 20,
+                'circle-stroke-width': 1,
+                'circle-stroke-color': '#fff'
+            }
+        });
+
+        // 添加点击聚类点时的交互行为
+        map.on('click', 'clusters', function(e) {
+            var features = map.queryRenderedFeatures(e.point, { layers: ['clusters'] });
+            var clusterId = features[0].properties.cluster_id;
+            map.getSource('my-geojson').getClusterExpansionZoom(clusterId, function(err, zoom) {
+                if (err) return;
+                map.easeTo({
+                    center: features[0].geometry.coordinates,
+                    zoom: zoom
+                });
+            });
+        });
+
+        // 添加鼠标悬停样式变化
+        map.on('mouseenter', 'clusters', function() {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+        map.on('mouseleave', 'clusters', function() {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+</script>
+
+</body>
+</html>

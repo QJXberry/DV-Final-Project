@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DV final</title>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .nav { overflow: hidden; background-color: #333; }
+    .nav a { float: left; color: #f2f2f2; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 17px; }
+    .nav a:hover { background-color: #ddd; color: black; }
+    .nav a.active { background-color: #4CAF50; color: white; }
+    #content { padding: 20px; }
+</style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'PickupPoint')">Pick Up</a>
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'DropOff')">Drop Off</a>
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'PickupCluster')">Pickup Cluster</a>
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'DropoffCluster')">Dropoff Cluster</a>
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'DVFinal')">Bubbles</a>
+    <a href="javascript:void(0);" class="tablinks" onclick="openPage(event, 'DVShow')">3D</a>
+</div>
+
+<div id="content">Click on the tab above to view the content.</div>
+
+<script>
+function openPage(evt, pageName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    var url;
+    if(pageName === 'DVFinal') {
+        url = 'https://croon233.github.io/DVFinal/';
+    } else if(pageName === 'DVShow') {
+        url = 'https://tonyc793.github.io/dv_show/';
+    } else {
+        url = pageName + '.html';
+    }
+    document.getElementById('content').innerHTML = '<object type="text/html" data="' + url + '" style="width:100%; height: calc(100vh - 50px);"></object>';
+    evt.currentTarget.className += " active";
+}
+</script>
+
+</body>
+</html>
