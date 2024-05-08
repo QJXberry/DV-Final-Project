@@ -19,7 +19,7 @@ https://tonyc793.github.io/dv_show
 https://github.com/dongtang3/grad-final
 
 ## Process Book
-[CS 573 Process Book.pdf](https://github.com/dongtang3/grad-final/files/15254189/CS.573.Process.Book.pdf)
+(CS 573 Process Book.pdf)
 
 ## Data Processing
 [Uploading Data_Processing&Visual.ipynb…]()
